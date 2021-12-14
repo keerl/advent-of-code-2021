@@ -24,6 +24,11 @@ for i in lines:
 coords = np.array(coords)
 xmax, ymax = coords.max(axis=0)
 
+if not (xmax/2).is_integer():
+    xmax += 1
+elif not (ymax/2).is_integer():
+    ymax += 1
+
 paper = np.zeros((ymax+1, xmax+1))
 
 for x, y in coords:
@@ -33,7 +38,7 @@ M = paper
 
 for fold_y in folds_y:
     m1 = M[0:fold_y:, ]
-    m2 = np.flipud(M[fold_y+1:, ])
+    m2 = np.flipud(M[fold_y+1:, :])
     M = m1 + m2
 
 for fold_x in folds_x: 
